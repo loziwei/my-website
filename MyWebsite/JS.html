@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Task List App</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        #taskList {
+            list-style-type: none;
+            padding: 0;
+        }
+        .task {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border: 1px solid #ddd;
+            margin: 5px 0;
+            padding: 10px;
+        }
+        .task button {
+            margin-left: 10px;
+        }
+    </style>
+</head>
+<body>
+
+<h1>Task List</h1>
+<input type="text" id="newTaskInput" placeholder="Add a new task">
+<button onclick="addTask()">Add Task</button>
+
+<ul id="taskList"></ul>
+
+<script>
+    function addTask() {
+        var newTaskInput = document.getElementById("newTaskInput");
+        var taskList = document.getElementById("taskList");
+
+        if (newTaskInput.value.trim() !== "") {
+            // Create new task item
+            var taskItem = document.createElement("li");
+            taskItem.className = "task";
+            taskItem.innerHTML = `
+                <span>${newTaskInput.value}</span>
+                <button onclick="completeTask(this)">Complete</button>
+                <button onclick="deleteTask(this)">Delete</button>
+            `;
+
+            // Append task item to the list
+            taskList.appendChild(taskItem);
+
+            // Clear input field
+            newTaskInput.value = "";
+        }
+    }
+
+    function completeTask(button) {
+        var taskItem = button.parentElement;
+        taskItem.classList.add("completed");
+    }
+
+    function deleteTask(button) {
+        var taskItem = button.parentElement;
+        taskItem.remove();
+    }
+</script>
+
+</body>
+</html>
